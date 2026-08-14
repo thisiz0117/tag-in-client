@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text>Edit src/app/index.tsx to edit this screen.</Text>
+      <View style={styles.google}></View>
     </View>
   );
 }
@@ -14,4 +14,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  google: {
+    width: 150,
+    height: 150,
+    backgroundColor: 'white',
+  }
 });
