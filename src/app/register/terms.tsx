@@ -1,7 +1,14 @@
 // 이용 약관
 import Term from "@/components/Term";
 import { useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const Terms = () => {
   const [checks, setChecks] = useState<Record<string, boolean>>({});
@@ -15,8 +22,8 @@ const Terms = () => {
     ex.forEach((item) => {
       updatedChecks[item.id] = !checkAll;
     });
-    setChecks(updatedChecks);  
-  }
+    setChecks(updatedChecks);
+  };
 
   const ex = [
     {
@@ -73,17 +80,24 @@ const Terms = () => {
   ];
   return (
     <View style={styles.phone}>
-      <TouchableOpacity
-        onPress={toggleSetCheckAll}
-      >
-        <View>
-          <View style={[styles.checkAllContainer, checkAll ? styles.check : styles.unCheck]}>
+      <TouchableOpacity onPress={toggleSetCheckAll}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>약관에 동의해 주세요</Text>
+          <Text style={styles.titleNote}>필수 항목에 동의하면 바로 시작할 수 있어요.</Text>
+        </View>
+        <View style={styles.checkAllContainer}>
+          <View
+            style={[
+              styles.checkAllBox,
+              checkAll ? styles.check : styles.unCheck,
+            ]}
+          >
             <Image
               source={require("@/assets/images/icons/check-icon.svg")}
               style={checkAll ? undefined : styles.unCheck}
             />
           </View>
-          <Text>전체 동의</Text>
+          <Text style={styles.checkAllText}>전체 동의</Text>
         </View>
       </TouchableOpacity>
       <ScrollView
@@ -119,12 +133,14 @@ const Terms = () => {
 
 const styles = StyleSheet.create({
   phone: {
+    paddingTop: 100,
     width: 402,
     height: 874,
     backgroundColor: "#000000",
     borderRadius: 48,
     display: "flex",
     alignItems: "center",
+    justifyContent: 'center'
   },
   scroll: {
     width: "100%",
@@ -167,22 +183,67 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: 700,
   },
-  checkAllContainer: {
+  checkAllBox: {
     width: 22,
     height: 22,
     borderRadius: 11,
     borderWidth: 2,
-    borderColor: '#494949',
-    display:'flex',
-    alignItems:'center',
-    justifyContent:'center'
+    borderColor: "#494949",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   check: {
-    borderColor: '#ffffff',
+    borderColor: "#ffffff",
   },
   unCheck: {
-    opacity: 0.3,
+    opacity: 0.4,
   },
+  checkAllContainer: {
+    width: 359,
+    height: 54,
+    backgroundColor: '#1A1A1A',
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: 13,
+    alignItems: 'center',
+    gap: 13,
+    padding: 16
+  },
+  checkAllText: {
+    color: 'rgba(242, 242, 242, 1)',
+    fontFamily: 'Pretendard',
+    fontSize: 15.5,
+    fontStyle: 'normal',
+    fontWeight: 600,
+    letterSpacing: -0.155,
+  },
+  titleContainer: {
+    width: 354,
+    height: 64.8,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 8.8,
+    marginBottom: 30.68
+
+  },
+  title: {
+    fontFamily: 'Pretendard',
+    color: '#F2F2F2',
+    fontSize: 26,
+    fontWeight: 700,
+    fontStyle: 'normal',
+    lineHeight: 33.8,
+    letterSpacing: -0.65
+  },
+  titleNote: {
+    color: '#757575',
+    fontFamily: 'Pretendard',
+    fontSize: 14,
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: 21.7,
+  }
 });
 
 export default Terms;
