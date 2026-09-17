@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   textDetailContainer: {
     // display: "none",
     width: 354,
+    paddingInline: 18.5,
     paddingBottom: 16,
   },
   unCheck: {
