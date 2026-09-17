@@ -1,0 +1,150 @@
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+interface TermProps {
+  isRequire: boolean;
+  text: string;
+  text_detail: string;
+  isCheck: boolean;
+  isDetail: boolean;
+  onToggle: () => void;
+  onDetailTextToggle: () => void;
+}
+const Term = ({
+  isRequire,
+  text,
+  text_detail,
+  isCheck,
+  isDetail,
+  onToggle,
+  onDetailTextToggle,
+}: TermProps) => {
+  return (
+    <View style={styles.termContainer}>
+      <TouchableOpacity onPress={onDetailTextToggle}>
+        <View style={styles.container}>
+          <View style={styles.leftContainer}>
+            <TouchableOpacity onPress={onToggle}>
+              <View style={styles.arrowContainer}>
+                <Image
+                  source={require("@/assets/images/icons/check-icon.svg")}
+                  style={isCheck ? undefined : styles.unCheck}
+                />
+              </View>
+            </TouchableOpacity>
+            <Text style={styles.textContainer}>
+              <Text
+                style={[styles.require, !isRequire && styles.optionalOpacity]}
+              >
+                {isRequire ? "필수 " : "선택 "}
+              </Text>
+              <Text style={styles.text}>{text}</Text>
+            </Text>
+          </View>
+          <Image
+            source={require("@/assets/images/icons/arrow-icon.svg")}
+            style={styles.arrow}
+          />
+        </View>
+      </TouchableOpacity>
+      <View style={isDetail ? styles.textDetailContainer : undefined}>
+        <Text style={styles.textDetail}>{isDetail ? text_detail : null}</Text>
+      </View>
+    </View>
+  );
+};
+
+const BASE = {
+  fontFamily: "Pretendard",
+  // fontSize: 12.5,
+  lineHeight: 18,
+  includeFontPadding: false,
+  textAlignVertical: "center",
+} as const;
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    width: 354,
+    height: 55,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 16,
+    paddingBottom: 16,
+    paddingHorizontal: 4,
+    borderBottomColor: "rgba(255, 255, 255, 0.15)",
+    borderBottomWidth: 1,
+    fontStyle: "normal",
+  },
+  require: {
+    ...BASE,
+    color: "#FFFFFF",
+    fontSize: 12.5,
+    fontFamily: "Pretendard",
+    fontWeight: 600,
+    opacity: 0.55,
+  },
+  text: {
+    ...BASE,
+    color: "#FFFFFF",
+    opacity: 0.82,
+    fontSize: 14.5,
+    fontWeight: 400,
+  },
+  textDetail: {
+    ...BASE,
+    color: "#949494",
+    fontSize: 10,
+    fontWeight: 500,
+  },
+  textDetailContainer: {
+    // display: "none",
+    width: 354,
+    paddingBottom: 16,
+  },
+  unCheck: {
+    opacity: 0.3,
+  },
+  textContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 6,
+    flexGrow: 1,
+    flexShrink: 0,
+    flexBasis: 0,
+  },
+  arrow: {
+    opacity: 0.28,
+    flexShrink: 0,
+  },
+  leftContainer: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 13,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  optionalOpacity: {
+    opacity: 0.3,
+  },
+  arrowContainer: {
+    display: "flex",
+    width: 22,
+    height: 22,
+    margin: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  termContainer: {
+    display: "flex",
+    width: 354,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+});
+
+export default Term;
