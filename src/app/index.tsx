@@ -5,18 +5,30 @@ import Tag from "@/components/Tag";
 
 export default function Index() {
   const handleGoogleLogin = () => {
-    const oauth_url = "http://localhost:8080/auth/google";
+    const oauth_url = "http://localhost:8081/auth/google";
 
     if (Platform.OS === 'web') {
-      window.location.href = oauth_url;
+      window.location.href = oauth_url; 
     } else {
       Linking.openURL(oauth_url);
     }
   };
+  const toTerm = () => {
+    const url = "http://localhost:8081/regiester/terms"
+
+    if (Platform.OS === 'web') {
+      window.location.href = url;
+    } else {
+      Linking.openURL(url);
+    }
+  }
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.google} onPress={handleGoogleLogin}>
         <Image source={require('@/assets/images/icons/google-icon.png')} style={{width: 50, height: 50, resizeMode: 'contain'}}></Image>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={toTerm}>
+        <Text>terms</Text>
       </TouchableOpacity>
     </View>
   );

@@ -72,8 +72,6 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 16,
     paddingHorizontal: 4,
-    borderBottomColor: "rgba(255, 255, 255, 0.15)",
-    borderBottomWidth: 1,
     fontStyle: "normal",
   },
   require: {
@@ -98,7 +96,6 @@ const styles = StyleSheet.create({
     fontWeight: 500,
   },
   textDetailContainer: {
-    // display: "none",
     width: 354,
     paddingInline: 18.5,
     paddingBottom: 16,
@@ -145,6 +142,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: 8,
+    borderBottomColor: "#202020",
+    borderBottomWidth: 1,
   },
 });
 
