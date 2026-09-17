@@ -5,38 +5,50 @@ interface TermProps {
   text: string;
   text_detail: string;
   isCheck: boolean;
+  isDetail: boolean;
   onToggle: () => void;
+  onDetailTextToggle: () => void;
 }
 const Term = ({
   isRequire,
   text,
   text_detail,
   isCheck,
+  isDetail,
   onToggle,
+  onDetailTextToggle,
 }: TermProps) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.arrowContainer}>
-        <TouchableOpacity onPress={onToggle}>
+    <View style={styles.termContainer}>
+      <TouchableOpacity onPress={onDetailTextToggle}>
+        <View style={styles.container}>
+          <View style={styles.leftContainer}>
+            <TouchableOpacity onPress={onToggle}>
+              <View style={styles.arrowContainer}>
+                <Image
+                  source={require("@/assets/images/icons/check-icon.svg")}
+                  style={isCheck ? undefined : styles.unCheck}
+                />
+              </View>
+            </TouchableOpacity>
+            <Text style={styles.textContainer}>
+              <Text
+                style={[styles.require, !isRequire && styles.optionalOpacity]}
+              >
+                {isRequire ? "필수 " : "선택 "}
+              </Text>
+              <Text style={styles.text}>{text}</Text>
+            </Text>
+          </View>
           <Image
-            source={require("@/assets/images/icons/check-icon.svg")}
-            style={isCheck ? undefined : styles.unCheck}
+            source={require("@/assets/images/icons/arrow-icon.svg")}
+            style={styles.arrow}
           />
-        </TouchableOpacity>
-        <Text style={styles.textContainer}>
-          <Text style={[styles.require, !isRequire && styles.optionalOpacity]}>
-            {isRequire ? "필수 " : "선택 "}
-          </Text>
-          <Text style={styles.text}>{text}</Text>
-        </Text>
+        </View>
+      </TouchableOpacity>
+      <View style={isDetail ? styles.textDetailContainer : undefined}>
+        <Text style={styles.textDetail}>{isDetail ? text_detail : null}</Text>
       </View>
-      <View style={styles.textDetailContainer}>
-        <Text style={styles.textDetail}>{text_detail}</Text>
-      </View>
-      <Image
-        source={require("@/assets/images/icons/arrow-icon.svg")}
-        style={styles.arrow}
-      />
     </View>
   );
 };
@@ -53,6 +65,7 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     width: 354,
+    height: 55,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -80,12 +93,14 @@ const styles = StyleSheet.create({
   },
   textDetail: {
     ...BASE,
-    color: "#FFFFFF",
+    color: "#949494",
     fontSize: 10,
     fontWeight: 500,
   },
   textDetailContainer: {
-    display: "none",
+    // display: "none",
+    width: 354,
+    paddingBottom: 16,
   },
   unCheck: {
     opacity: 0.3,
@@ -104,7 +119,7 @@ const styles = StyleSheet.create({
     opacity: 0.28,
     flexShrink: 0,
   },
-  arrowContainer: {
+  leftContainer: {
     display: "flex",
     flexDirection: "row",
     gap: 13,
@@ -113,6 +128,22 @@ const styles = StyleSheet.create({
   },
   optionalOpacity: {
     opacity: 0.3,
+  },
+  arrowContainer: {
+    display: "flex",
+    width: 22,
+    height: 22,
+    margin: 0,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  termContainer: {
+    display: "flex",
+    width: 354,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
   },
 });
 
