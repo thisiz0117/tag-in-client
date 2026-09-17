@@ -1,5 +1,7 @@
 import { Text, View, StyleSheet, Platform, Linking, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
+import Tag from "@/components/Tag";
+
 
 export default function Index() {
   const handleGoogleLogin = () => {
