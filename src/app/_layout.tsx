@@ -1,18 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { useFonts } from "expo-font";
+import { Slot } from "expo-router";
+import { ActivityIndicator, View } from "react-native";
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    "Pretendard-Regular": require("@/assets/fonts/Pretendard-Regular.otf"),
+    "Pretendard-Medium": require("@/assets/fonts/Pretendard-Medium.otf"),
+    "Pretendard-SemiBold": require("@/assets/fonts/Pretendard-SemiBold.otf"),
+    "Pretendard-Bold": require("@/assets/fonts/Pretendard-Bold.otf"),
+  });
 
-SplashScreen.preventAutoHideAsync();
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
-  );
+  return <Slot />;
 }
