@@ -3,6 +3,8 @@ import Term from "@/components/register/Term";
 import { useState } from "react";
 import {
   Image,
+  Linking,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -68,9 +70,8 @@ const Terms = () => {
     },
   ];
 
-  // 모든 항목이 체크되면 전체 동의도 자동으로 체크됨 (state가 아닌 계산값)
   const checkAll = ex.every((item) => item.isCheck);
-
+  const checkAllRequire = ex.every((item) => !item.isRequire || item.isCheck);
   const toggleSetCheckAll = () => {
     const next = !checkAll;
     const updatedChecks: Record<string, boolean> = {};
@@ -78,6 +79,15 @@ const Terms = () => {
       updatedChecks[item.id] = next;
     });
     setChecks(updatedChecks);
+  };
+
+  const access = () => {
+    const url = "http://localhost:8081/register/success";
+    if (Platform.OS === "web") {
+      window.location.href = url;
+    } else {
+      Linking.openURL(url);
+    }
   };
 
   return (
@@ -132,9 +142,11 @@ const Terms = () => {
 
         <View style={styles.bottomContainer}>
           <AccessButton
-            backgroundColor="#1E1E1E"
+            backgroundColor={checkAllRequire ? "#F2F2F2" : "#1E1E1E"}
             text="동의하고 계속"
-            textColor="#666666"
+            textColor={checkAllRequire ? "#121212" : "#666666"}
+            onPress={access}
+            disabled={!checkAllRequire}
           />
         </View>
       </ScrollView>
