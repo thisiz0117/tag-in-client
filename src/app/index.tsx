@@ -14,7 +14,7 @@ export default function Index() {
     }
   };
   const toTerm = () => {
-    const url = "http://localhost:8081/regiester/terms"
+    const url = "http://localhost:8081/register/terms"
 
     if (Platform.OS === 'web') {
       window.location.href = url;
